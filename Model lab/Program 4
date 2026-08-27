@@ -1,0 +1,39 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+
+^[A-Z]{2}[0-9]{2}[A-Z]{2}[0-9]{4}$ {
+    printf("Valid Vehicle Registration Number\n");
+}
+
+.* {
+    printf("Invalid Vehicle Registration Number\n");
+}
+
+\n {
+    /* Ignore newline */
+}
+
+%%
+
+int yywrap()
+{
+    return 1;
+}
+
+int main()
+{
+    printf("Enter vehicle registration number: ");
+    yylex();
+    return 0;
+}
+
+sample output 1:
+Enter vehicle registration number: TN01AB1234
+Valid Vehicle Registration Number
+
+sample output 2:
+Enter vehicle registration number: TN1AB1234
+Invalid Vehicle Registration Number
