@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+int main()
+{
+    int t1, t2, x;
+
+    printf("Intermediate Code Before Optimization:\n");
+    printf("t1 = 10 + 20\n");
+    printf("t2 = t1 * 5\n");
+    printf("x = t2\n");
+
+    /* Constant folding */
+    t1 = 10 + 20;
+    t2 = t1 * 5;
+    x = t2;
+
+    printf("\nIntermediate Code After Optimization:\n");
+    printf("t1 = %d\n", t1);
+    printf("t2 = %d\n", t2);
+    printf("x = %d\n", x);
+
+    return 0;
+}
+
+output:
+Intermediate Code Before Optimization:
+t1 = 10 + 20
+t2 = t1 * 5
+x = t2
+
+Intermediate Code After Optimization:
+t1 = 30
+t2 = 150
+x = 150
