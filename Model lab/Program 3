@@ -1,0 +1,48 @@
+%{
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int upper = 0, lower = 0, digit = 0, special = 0;
+int length = 0;
+%}
+
+%%
+
+[A-Z]      { upper = 1; length++; }
+[a-z]      { lower = 1; length++; }
+[0-9]      { digit = 1; length++; }
+[@#$%^&*!] { special = 1; length++; }
+.          { length++; }
+
+\n {
+    if (length >= 8 && upper && lower && digit && special)
+        printf("Valid Password\n");
+    else
+        printf("Invalid Password\n");
+
+    upper = lower = digit = special = 0;
+    length = 0;
+}
+
+%%
+
+int yywrap()
+{
+    return 1;
+}
+
+int main()
+{
+    printf("Enter password: ");
+    yylex();
+    return 0;
+}
+
+sample output 1:
+Enter password: Hari@123
+Valid Password
+
+sample output 2:
+Enter password: hari123
+Invalid Password
